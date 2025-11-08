@@ -1,0 +1,18 @@
+{
+  "name": "le-dc-app",
+  "version": "1.0.0",
+  "description": "sheburge inc discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "ping"
+  },
+  "author": "mr.duck",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1"
+  }
+}
