@@ -1,16 +1,15 @@
 {
-  "name": "sheburge inc discord bot",
+  "name": "sheburge-inc-discord-bot",
   "version": "1.0.0",
   "description": "A discord bot made for fun and practise!",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "deploy": "node deploy-commands.js",
+    "deploy": "node deploy-commands.js"
   },
     "dependencies": {
     "discord.js": "^14.15.3",
     "express": "^4.18.2",
     "fs-extra": "^11.2.0"
-  }
   }
 }
