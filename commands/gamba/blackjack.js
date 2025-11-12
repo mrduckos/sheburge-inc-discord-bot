@@ -10,7 +10,7 @@ module.exports = {
     .setDescription("Blackjackiä krediteillä. Anna betti ja peliä!")
     .addStringOption(option =>
     option
-         .setName("Betti")
+         .setName("betti")
          .setDescription("Krediittien määrä, jonka haluat panostaa.")
          .setRequired(true)
     ),
@@ -34,9 +34,9 @@ module.exports = {
     }
 
     const betAmount = parseInt(interaction.options.getString("Betti"));
-    if (isNaN(betAmount) || betAmount <= 0) {
-        return interaction.reply("❌ Betin tulee olla positiivinen kokonaisluku.");
-    }
+    //if (isNaN(betAmount) || betAmount <= 0) {
+    //    return interaction.reply("❌ Betin tulee olla positiivinen kokonaisluku.");
+    //}
 
     if (user.credit < betAmount) {
         return interaction.reply(`❌ Sinulla ei ole tarpeeksi krediittejä. Sinulla on ${user.credit} krediittiä.`);
@@ -76,5 +76,28 @@ module.exports = {
     const playerHand = [drawCard(), drawCard()];
     let playerValue = calculateHandValue(playerHand);
     await interaction.reply(`🃏 Sinun kätesi: ${playerHand.map(c => c.rank + c.suit).join(', ')} (arvo: ${playerValue})`);
+
+    // Koneen käsi
+    const dealerHand = [drawCard(), drawCard()];
+    let dealerValue = calculateHandValue(dealerHand);
+    await interaction.followUp(`🤖 Koneen käsi: ${dealerHand.map(c => c.rank + c.suit).join(', ')} (arvo: ${dealerValue})`);
+
+    let resultMessage = '';
+    if (playerValue > dealerValue || dealerValue > 21) {
+        const winnings = betAmount * 2;
+        user.credit += winnings;
+        resultMessage = `🎉 Voitit! Sait ${winnings} krediittiä. Sinulla on nyt ${user.credit} krediittiä.`;
+    } else if (playerValue < dealerValue) {
+        resultMessage = `😞 Hävisit! Menetit ${betAmount} krediittiä. Sinulla on nyt ${user.credit} krediittiä.`;
+    } else {
+        user.credit += betAmount;
+        resultMessage = `🤝 Tasapeli! Panoksesi palautettiin. Sinulla on nyt ${user.credit} krediittiä.`;
+    }
+    
+    // Tallenna päivitetty data
+    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
+    await interaction.followUp(resultMessage);
+
+    
 }
 };
