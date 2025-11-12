@@ -36,7 +36,7 @@ module.exports = {
     // Etsi käyttäjä
     const existing = data.find(u => u.name === name);
     if (existing) {
-      existing.credit = credit; // päivitä
+      existing.credit += credit; // päivitä
     } else {
       data.push({ name, credit }); // lisää uusi
     }
