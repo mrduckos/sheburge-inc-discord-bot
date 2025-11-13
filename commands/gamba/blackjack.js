@@ -107,7 +107,7 @@ module.exports = {
     const standButton = new ButtonBuilder()
       .setCustomId("stand")
       .setLabel("✋ Stand")
-      .setStyle(ButtonStyle.Secondary);
+      .setStyle(ButtonStyle.Danger);
 
     const row = new ActionRowBuilder().addComponents(hitButton, standButton);
 
