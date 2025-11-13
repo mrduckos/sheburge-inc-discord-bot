@@ -64,8 +64,10 @@ module.exports = {
     user.credit -= betAmount;
 
     const suits = ["♠", "♥", "♦", "♣"];
-    function drawCard() {
-      const rank = Math.floor(Math.random() * 13) + 1;
+    const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
+
+   function drawCard() {
+      const rank = ranks[Math.floor(Math.random() * ranks.length)];
       const suit = suits[Math.floor(Math.random() * suits.length)];
       return { rank, suit };
     }
@@ -74,11 +76,17 @@ module.exports = {
       let value = 0;
       let aceCount = 0;
       for (const card of hand) {
-        if (card.rank > 10) value += 10;
-        else if (card.rank === 1) {
-          value += 11;
-          aceCount++;
-        } else value += card.rank;
+        if (typeof card.rank === "string") {
+          if (card.rank === "A") {
+            value += 11;
+            aceCount++;
+          } else {
+            // J, Q, K are worth 10
+            value += 10;
+          }
+        } else {
+          value += card.rank;
+        }
       }
       while (value > 21 && aceCount > 0) {
         value -= 10;
@@ -157,7 +165,7 @@ module.exports = {
           newEmbed
             .setColor("Red")
             .setDescription(`💥 Bust! Hävisit ja menetit ${betAmount} krediittiä.`)
-            .setFooter({ text: "Peli päättyi." });
+            .setFooter({ text: "Peli päättyi. Sinulla on " + user.credit + " krediittiä." });
           fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
           await i.update({ embeds: [newEmbed], components: [] });
         } else {
