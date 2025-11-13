@@ -81,7 +81,7 @@ module.exports = {
             value += 11;
             aceCount++;
           } else {
-            // J, Q, K are worth 10
+            // J, Q, K ovat 10
             value += 10;
           }
         } else {
@@ -136,7 +136,7 @@ module.exports = {
     // Luo komponenttien keräin
     const collector = message.createMessageComponentCollector({
       componentType: ComponentType.Button,
-      time: 60000, // 1 minuutti
+      time: 60000, // 1 minuutti aikaa pelaamiseen
       filter: i => i.user.id === interaction.user.id,
     });
 
@@ -201,6 +201,7 @@ module.exports = {
           result = `🤝 Tasapeli! Panoksesi palautettiin.\nSinulla on nyt **${user.credit}** krediittiä.`;
         }
 
+        // Tallenna päivitetyt krediitit
         fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
 
         // Luo lopullinen upotus
