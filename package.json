@@ -7,9 +7,19 @@
     "start": "node index.js",
     "deploy": "node deploy-commands.js"
   },
-    "dependencies": {
-    "discord.js": "^14.15.3",
+  "dependencies": {
+    "discord.js": "^14.24.2",
     "express": "^4.18.2",
     "fs-extra": "^11.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrduckos/sheburge-inc-discord-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrduckos/sheburge-inc-discord-bot/issues"
+  },
+  "homepage": "https://github.com/mrduckos/sheburge-inc-discord-bot#readme"
 }
